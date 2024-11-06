@@ -2,14 +2,13 @@ import subprocess
 
 commands = [
     'pip install pip3-autoremove',
-    'pip-autoremove torch torchvision torchaudio -y',
+    'pip-autoremove torch torchvision torchaudio -y',  # This can fail without breaking the loop
     'pip install torch torchvision torchaudio xformers --index-url https://download.pytorch.org/whl/cu121',
     'pip install unsloth',
     'pip install azure-ai-textanalytics'
 ]
 
 def install_packages():
-    
     for command in commands:
         print(f"Running command: {command}")
         try:
@@ -18,7 +17,10 @@ def install_packages():
             print(f"Error occurred while running command: {command}")
             print(f"Return code: {e.returncode}")
             print(f"Command output: {e.output if hasattr(e, 'output') else 'No output'}")
-            break
+            if 'pip-autoremove' in command:
+                print("Skipping pip-autoremove due to error...")
+                continue  # Skip to the next command if pip-autoremove fails
+            break  # Stop execution if it's another error
 
 install_packages()
 
