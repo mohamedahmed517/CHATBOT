@@ -1,0 +1,7 @@
+pip3-autoremove
+torch
+torchvision
+torchaudio
+xformers
+unsloth
+azure-ai-textanalytics
