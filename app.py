@@ -12,16 +12,7 @@ def install_packages():
 
     for command in commands:
         print(f"Running command: {command}")
-        try:
-            subprocess.check_call(command, shell=True)
-        except subprocess.CalledProcessError as e:
-            print(f"Error occurred while running command: {command}")
-            print(f"Return code: {e.returncode}")
-            print(f"Command output: {e.output if hasattr(e, 'output') else 'No output'}")
-
-            # You may choose to exit the loop or continue to the next command
-            # break  # Uncomment this to stop execution on the first error
-            continue  # Use this to attempt to run the next command despite the error
+        subprocess.check_call(command, shell=True)
 
 install_packages()
 
