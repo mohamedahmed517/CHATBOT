@@ -1,29 +1,3 @@
-import subprocess
-
-commands = [
-    'pip install pip3-autoremove',
-    'pip-autoremove torch torchvision torchaudio -y',  # This can fail without breaking the loop
-    'pip install torch torchvision torchaudio xformers --index-url https://download.pytorch.org/whl/cu121',
-    'pip install unsloth',
-    'pip install azure'
-]
-
-def install_packages():
-    for command in commands:
-        print(f"Running command: {command}")
-        try:
-            subprocess.check_call(command, shell=True)
-        except subprocess.CalledProcessError as e:
-            print(f"Error occurred while running command: {command}")
-            print(f"Return code: {e.returncode}")
-            print(f"Command output: {e.output if hasattr(e, 'output') else 'No output'}")
-            if 'pip-autoremove' in command:
-                print("Skipping pip-autoremove due to error...")
-                continue  # Skip to the next command if pip-autoremove fails
-            break  # Stop execution if it's another error
-
-install_packages()
-
 import re
 import streamlit as st
 from azure.core.credentials import AzureKeyCredential
