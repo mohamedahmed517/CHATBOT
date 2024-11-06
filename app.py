@@ -1,18 +1,16 @@
 import subprocess
 
 def install_packages():
-    # List of installation commands
-    commands = [
-        'pip install pip3-autoremove',
-        'pip-autoremove torch torchvision torchaudio -y',
-        'pip install torch torchvision torchaudio xformers --index-url https://download.pytorch.org/whl/cu121',
-        'pip install unsloth',
-        'pip install azure-ai-textanalytics'
-    ]
-
+    
     for command in commands:
         print(f"Running command: {command}")
-        subprocess.check_call(command, shell=True)
+        try:
+            subprocess.check_call(command, shell=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Error occurred while running command: {command}")
+            print(f"Return code: {e.returncode}")
+            print(f"Command output: {e.output if hasattr(e, 'output') else 'No output'}")
+            break
 
 install_packages()
 
