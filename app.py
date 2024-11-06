@@ -5,7 +5,7 @@ commands = [
     'pip-autoremove torch torchvision torchaudio -y',  # This can fail without breaking the loop
     'pip install torch torchvision torchaudio xformers --index-url https://download.pytorch.org/whl/cu121',
     'pip install unsloth',
-    'pip install azure-ai-textanalytics'
+    'pip install azure'
 ]
 
 def install_packages():
